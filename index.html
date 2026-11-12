@@ -171,8 +171,9 @@ legend,.lbl{font-family:var(--display);font-size:26px;padding:0;margin-bottom:6p
 body.touch #obj{top:calc(110px + env(safe-area-inset-top,0px))}
 body.touch #tTop{transform:translate(-50%,46px)}body.touch #gr{display:none}body.touch #gun{padding:3px 10px}
 /* przyciski po prawej: równa siatka bez nachodzenia (kolumny co 60 px, rzędy co 62 px), panel broni na dole na środku */
-body.touch #gun{right:auto;left:50%;transform:translateX(-50%)}
-body.touch #feed{max-width:44vw}body.touch #feed div:nth-child(n+4){display:none}
+body.touch #gun{top:calc(8px + env(safe-area-inset-top,0px));bottom:auto;right:calc(14px + env(safe-area-inset-right,0px));left:auto;transform:none;padding:4px 10px}
+body.touch #money{font-size:20px}body.touch #wname{font-size:16px}body.touch #ammo{font-size:28px}
+body.touch #feed{max-width:40vw;right:auto;left:max(12px,env(safe-area-inset-left,0px));top:calc(150px + env(safe-area-inset-top,0px));align-items:flex-start;font-size:14px}body.touch #feed div:nth-child(n+4){display:none}
 body.touch #touch button{width:56px;height:56px;font-size:14px}
 body.touch #tFire{right:calc(14px + env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));width:76px!important;height:76px!important}
 body.touch #tJump{right:calc(100px + env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px))}
@@ -185,7 +186,7 @@ body.touch #tKnife{right:calc(220px + env(safe-area-inset-right,0px));bottom:cal
 body.touch #tScope{right:calc(24px + env(safe-area-inset-right,0px));bottom:calc(160px + env(safe-area-inset-bottom,0px))}
 body.touch #tGsel{right:calc(100px + env(safe-area-inset-right,0px));bottom:calc(138px + env(safe-area-inset-bottom,0px))}
 body.touch #tPick{right:calc(14px + env(safe-area-inset-right,0px));bottom:calc(224px + env(safe-area-inset-bottom,0px));width:76px!important}
-@media (orientation:portrait){body.touch #gun{left:max(12px,env(safe-area-inset-left,0px));transform:none;bottom:calc(96px + env(safe-area-inset-bottom,0px))}body.touch #touch{transform:translateY(-74px)}body.touch #tTop{margin-top:74px}}
+@media (orientation:portrait){body.touch #gun{top:auto;right:auto;left:max(12px,env(safe-area-inset-left,0px));transform:none;bottom:calc(96px + env(safe-area-inset-bottom,0px))}body.touch #feed{left:auto;right:max(12px,env(safe-area-inset-right,0px));align-items:flex-end;top:calc(64px + env(safe-area-inset-top,0px))}body.touch #touch{transform:translateY(-74px)}body.touch #tTop{margin-top:74px}}
 body.touch #chat{bottom:calc(150px + env(safe-area-inset-bottom,0px))}
 @media (max-width:640px){
   #mini{width:104px;height:72px} #top{font-size:22px;gap:8px;padding:3px 8px} #timer{font-size:18px}

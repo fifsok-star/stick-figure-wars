@@ -138,7 +138,13 @@ legend,.lbl{font-family:var(--display);font-size:26px;padding:0;margin-bottom:6p
 #shopMoney{font-family:var(--display);font-size:30px;color:var(--ok)}
 #shopHint{margin:0 0 6px;color:var(--red);min-height:1.2em;font-size:17px}
 .cat{font-family:var(--display);font-size:22px;margin:10px 0 4px}
-.items{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px}
+.items{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:5px}
+/* sklep mieści się na jednym ekranie: kategoria z lewej, przedmioty w rzędzie obok, opis w jednej linii */
+#shop .panel{max-width:1120px;padding:10px 14px;overflow:hidden}#shop .phead{margin-bottom:2px}#shop h2{font-size:30px}#shopHint{font-size:15px;margin:0 0 2px}
+.catrow{display:grid;grid-template-columns:118px 1fr;gap:4px 8px;align-items:start;padding:4px 0;border-top:1.5px dashed rgba(27,31,58,.18)}
+#shop .cat{margin:4px 0 0;font-size:18px;line-height:1.05}
+#shop .item{padding:2px 8px}#shop .item b span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1}#shop .item b em,#shop .item b i{flex:none}#shop .item b{font-size:17px}#shop .item small{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (max-height:560px){#shop .item small{display:none}#shop .item b{font-size:15px}#shop .items{grid-template-columns:repeat(auto-fill,minmax(122px,1fr));gap:4px}.catrow{grid-template-columns:84px 1fr;padding:2px 0}#shop .cat{font-size:15px}#shop h2{font-size:24px}#shopMoney{font-size:22px}}
 .item{text-align:left;padding:6px 10px;border:2px solid var(--ink);border-radius:var(--wobble);background:var(--paper);cursor:pointer;display:flex;flex-direction:column;gap:1px;min-width:0}
 .item b{font-family:var(--display);font-weight:400;font-size:21px;display:flex;justify-content:space-between;gap:8px}
 .item b em{font-style:normal;color:var(--ok)}
@@ -1330,7 +1336,8 @@ function buy(k){
 function buildShop(){
   const grid=$('shopGrid');grid.textContent='';
   for(const cat of SHOP){
-    const h=document.createElement('div');h.className='cat';h.textContent=cat[0];grid.appendChild(h);
+    const row=document.createElement('div');row.className='catrow';grid.appendChild(row);
+    const h=document.createElement('div');h.className='cat';h.textContent=cat[0];row.appendChild(h);
     const box=document.createElement('div');box.className='items';
     for(const k of cat[1]){
       const w=WEAPONS[k],g=GEAR[k]||(k.slice(0,2)==='m_'?MODS[k.slice(2)]:null),b=document.createElement('button');b.type='button';b.className='item';b.id='buy-'+k;
@@ -1338,9 +1345,9 @@ function buildShop(){
       n.textContent=w?w.name:g.name;p.textContent=(w?w.price:g.price)?'$'+(w?w.price:g.price):'gratis';
       {const sy={he:'●',fl:'✦',sm:'☁',m_sup:'⊘',m_sight:'◉',m_mag:'▮',m_grip:'⊥'}[k];if(sy){const q=document.createElement('i');q.className='sym';q.textContent=sy+' ';t.appendChild(q);}}t.appendChild(n);t.appendChild(p);
       const s=document.createElement('small');s.textContent=w?(w.proj?'Pocisk wybuchowy · magazynek '+w.mag:w.burst?w.dmg+' obrażeń · seria 3 strzałów · magazynek '+w.mag:(w.dmg+(w.pellets>1?'×'+w.pellets:'')+' obrażeń · '+w.rpm+'/min · magazynek '+w.mag)):g.info;
-      b.appendChild(t);b.appendChild(s);b.addEventListener('click',()=>buy(k));box.appendChild(b);
+      b.appendChild(t);b.appendChild(s);b.title=s.textContent;b.addEventListener('click',()=>buy(k));box.appendChild(b);
     }
-    grid.appendChild(box);
+    row.appendChild(box);
   }
 }
 function refreshShop(){

@@ -192,6 +192,16 @@ body.touch #tKnife{right:calc(220px + env(safe-area-inset-right,0px));bottom:cal
 body.touch #tScope{right:calc(24px + env(safe-area-inset-right,0px));bottom:calc(160px + env(safe-area-inset-bottom,0px))}
 body.touch #tGsel{right:calc(100px + env(safe-area-inset-right,0px));bottom:calc(138px + env(safe-area-inset-bottom,0px))}
 body.touch #tPick{right:calc(14px + env(safe-area-inset-right,0px));bottom:calc(224px + env(safe-area-inset-bottom,0px));width:76px!important}
+/* telefon w poziomie: zabójstwa w prawym górnym rogu, broń i naboje w prawym dolnym, przycisk Ognia nad nimi */
+@media (orientation:landscape){
+ body.touch #feed{left:auto;right:max(12px,env(safe-area-inset-right,0px));top:calc(8px + env(safe-area-inset-top,0px));align-items:flex-end;max-width:calc(46vw - 135px);font-size:13px}body.touch #feed div{max-width:100%}
+ body.touch #gun{top:auto;bottom:calc(6px + env(safe-area-inset-bottom,0px));right:calc(6px + env(safe-area-inset-right,0px));padding:2px 6px;line-height:1}
+ body.touch #money{display:inline;font-size:15px;margin-right:5px}body.touch #gun>div:nth-child(2){display:inline}body.touch #wname{font-size:14px}body.touch #ammo{font-size:21px;white-space:nowrap}body.touch #wmods{display:none}
+ body.touch #tFire{bottom:calc(66px + env(safe-area-inset-bottom,0px))}
+ body.touch #tReload{bottom:calc(150px + env(safe-area-inset-bottom,0px))}
+ body.touch #tScope{bottom:calc(212px + env(safe-area-inset-bottom,0px))}
+ body.touch #tPick{right:calc(214px + env(safe-area-inset-right,0px));bottom:calc(138px + env(safe-area-inset-bottom,0px))}
+}
 @media (orientation:portrait){body.touch #gun{top:calc(215px + env(safe-area-inset-top,0px));bottom:auto;right:max(12px,env(safe-area-inset-right,0px));left:auto;transform:none}body.touch #feed{left:auto;right:max(12px,env(safe-area-inset-right,0px));align-items:flex-end;top:calc(64px + env(safe-area-inset-top,0px))}body.touch #touch{transform:translateY(-74px)}body.touch #tTop{margin-top:74px}}
 body.touch #chat{bottom:calc(150px + env(safe-area-inset-bottom,0px))}
 @media (max-width:640px){
@@ -203,7 +213,7 @@ body.touch #chat{bottom:calc(150px + env(safe-area-inset-bottom,0px))}
 #fps.ok{color:var(--ok)}#fps.mid{color:#b97f00}#fps.bad{color:var(--red)}#fps:empty{display:none}
 @media (max-width:640px){#fps{top:calc(86px + env(safe-area-inset-top,0px));font-size:12px}}
 #mini,#fps,#top,#feed,#combo,#vitals,#gun,#obj,#cpBar,#clsBar,#dead,#chat,#buyhint,#touch>button,#tTop{zoom:var(--ui,1.15)}
-#cpBar{position:absolute;top:calc(64px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);display:flex;gap:6px;pointer-events:none}
+#cpBar{position:absolute;top:calc(71px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);display:flex;gap:6px;pointer-events:none}
 #cpBar span{width:30px;height:30px;border-radius:50%;border:2.5px solid var(--ink);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:19px;background:var(--paper);position:relative;overflow:hidden}
 #cpBar span i{position:absolute;left:0;bottom:0;width:100%;opacity:.55}#cpBar span b{position:relative;font-weight:400}#cpBar span.t0{background:#2456d6;color:#fff}#cpBar span.t1{background:#d42a2a;color:#fff}#cpBar span.here{outline:3px solid var(--marker);outline-offset:1px}
 #hud.cq #obj{top:calc(102px + env(safe-area-inset-top,0px))}body.touch #hud.cq #obj{top:calc(150px + env(safe-area-inset-top,0px))}

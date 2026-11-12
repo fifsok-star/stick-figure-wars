@@ -16,6 +16,7 @@ A 3D stick-figure shooter that runs in the browser — drawn in a school noteboo
 - **Online play without a server:** players connect browser-to-browser. The first person in a room becomes the host, starts the match from the lobby and can send an invite link.
 - Blood, bullet holes and shells that stay until the end of the round, damage numbers, scoreboard, round results with the best player and their best play, a celebration for the winning team and a crown for the battle royale winner.
 - Text chat (all / team), spectator mode, team switching, settings for volume and sensitivity, touch controls for phones.
+- FPS counter under the minimap (can be turned off in Settings).
 - **Languages:** Polish, English, German, Ukrainian, French.
 
 ## Controls

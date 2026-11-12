@@ -17,6 +17,7 @@ A 3D stick-figure shooter that runs in the browser — drawn in a school noteboo
 - Blood, bullet holes and shells that stay until the end of the round, damage numbers, scoreboard, round results with the best player and their best play, a celebration for the winning team and a crown for the battle royale winner.
 - Text chat (all / team), spectator mode, team switching, settings for volume and sensitivity, touch controls for phones.
 - FPS counter under the minimap (can be turned off in Settings).
+- Sunlight with real-time shadows (can be turned off in Settings; off by default on phones).
 - **Languages:** Polish, English, German, Ukrainian, French.
 
 ## Controls
@@ -26,7 +27,7 @@ A 3D stick-figure shooter that runs in the browser — drawn in a school noteboo
 | `W` `A` `S` `D` | Move |
 | Mouse | Aim |
 | Left click | Shoot |
-| Right click | Aim down sights (every gun; sniper scope, stronger zoom with a red dot) |
+| Right click | Aim (every gun): in third person the camera moves over the right shoulder, in first person you look down the sights; sniper scope; stronger zoom with a red dot |
 | `Space` | Jump |
 | `C` | Crouch |
 | `Shift` | Dive to cover |

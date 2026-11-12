@@ -169,7 +169,23 @@ legend,.lbl{font-family:var(--display);font-size:26px;padding:0;margin-bottom:6p
 #tGsel{right:max(160px,env(safe-area-inset-right,0px));bottom:calc(214px + env(safe-area-inset-bottom,0px));font-size:12px!important}
 #tPick{right:max(24px,env(safe-area-inset-right,0px));bottom:calc(346px + env(safe-area-inset-bottom,0px));width:76px!important;border-radius:29px!important;background:var(--marker)!important}
 body.touch #obj{top:calc(110px + env(safe-area-inset-top,0px))}
-body.touch #touch{transform:translateY(-46px)}body.touch #tTop{transform:translate(-50%,46px)}body.touch #gr{display:none}body.touch #gun{padding:3px 10px}
+body.touch #tTop{transform:translate(-50%,46px)}body.touch #gr{display:none}body.touch #gun{padding:3px 10px}
+/* przyciski po prawej: równa siatka bez nachodzenia (kolumny co 60 px, rzędy co 62 px), panel broni na dole na środku */
+body.touch #gun{right:auto;left:50%;transform:translateX(-50%)}
+body.touch #feed{max-width:44vw}body.touch #feed div:nth-child(n+4){display:none}
+body.touch #touch button{width:56px;height:56px;font-size:14px}
+body.touch #tFire{right:calc(14px + env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));width:76px!important;height:76px!important}
+body.touch #tJump{right:calc(100px + env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px))}
+body.touch #tCrouch{right:calc(160px + env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px))}
+body.touch #tDive{right:calc(220px + env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px))}
+body.touch #tReload{right:calc(24px + env(safe-area-inset-right,0px));bottom:calc(98px + env(safe-area-inset-bottom,0px))}
+body.touch #tSwap{right:calc(100px + env(safe-area-inset-right,0px));bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+body.touch #tGren{right:calc(160px + env(safe-area-inset-right,0px));bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+body.touch #tKnife{right:calc(220px + env(safe-area-inset-right,0px));bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+body.touch #tScope{right:calc(24px + env(safe-area-inset-right,0px));bottom:calc(160px + env(safe-area-inset-bottom,0px))}
+body.touch #tGsel{right:calc(100px + env(safe-area-inset-right,0px));bottom:calc(138px + env(safe-area-inset-bottom,0px))}
+body.touch #tPick{right:calc(14px + env(safe-area-inset-right,0px));bottom:calc(224px + env(safe-area-inset-bottom,0px));width:76px!important}
+@media (orientation:portrait){body.touch #gun{left:max(12px,env(safe-area-inset-left,0px));transform:none;bottom:calc(96px + env(safe-area-inset-bottom,0px))}body.touch #touch{transform:translateY(-74px)}body.touch #tTop{margin-top:74px}}
 body.touch #chat{bottom:calc(150px + env(safe-area-inset-bottom,0px))}
 @media (max-width:640px){
   #mini{width:104px;height:72px} #top{font-size:22px;gap:8px;padding:3px 8px} #timer{font-size:18px}

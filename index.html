@@ -650,7 +650,7 @@ function buildRoom(b,k,pc,mi){
   const cx=b[0],cz=b[1],w=b[2],d=b[3],r=rng32(mi*131+k*17+3);
   const wall=(x,z,ww,dd,h,col,coll)=>{if(ww<=.01||dd<=.01)return;if(coll!==false)boxes.push({x0:x-ww/2,x1:x+ww/2,z0:z-dd/2,z1:z+dd/2,h:coll||h,fill:col,wall:false});pc(new THREE.BoxGeometry(ww,h,dd),col,x,h/2,z);};
   const vis=(x,y,z,ww,hh,dd,col)=>pc(new THREE.BoxGeometry(ww,hh,dd),col,x,y,z);
-  const RP=[],RC=[],RU=[],REP=[],flo=(x,z,ww,dd,col)=>{const g=new THREE.PlaneGeometry(ww,dd);g.rotateX(-Math.PI/2);pc(g,col,x,.006,z);};
+  const RP=[],RC=[],RU=[],REP=[],FP=[],FC=[],FU=[],flo=(x,z,ww,dd,col)=>{const g=new THREE.PlaneGeometry(ww,dd);g.rotateX(-Math.PI/2);addTris(g,col,.5,FP,FC,FU,x,.012,z);};
   const roofBox=(x,y,z,ww,hh,dd,col)=>{const g=new THREE.BoxGeometry(ww,hh,dd);addTris(g,col,.5,RP,RC,RU,x,y,z);const eg=new THREE.EdgesGeometry(g,32).attributes.position;for(let q=0;q<eg.count;q++)REP.push(eg.getX(q)+x,eg.getY(q)+y,eg.getZ(q)+z);};
   if(w===10){
     // szopa: ściany .3, drzwi 2,2 m (północ przy x+2,5, południe przy x−2,5), okna, drzwi otwarte na zewnątrz
@@ -661,7 +661,7 @@ function buildRoom(b,k,pc,mi){
       vis(cx+dx-DW/2+.06,1.15,zc,.12,2.3,t+.04,DK);vis(cx+dx+DW/2-.06,1.15,zc,.12,2.3,t+.04,DK); // futryna
       const hx=cx+dx-DW/2;wall(hx-.05,zc+sg*(t/2+DW/2),.08,DW,2.25,DR,2.25);   // skrzydło otwarte na zewnątrz
       vis(hx-.1,1.1,zc+sg*(t/2+DW*.8),.04,.1,.18,'#22242f');
-      for(let q=0;q<Math.floor(w/.6);q++){const x=cx-w/2+.3+q*.6;if(x>g0-.05&&x<g1+.05)continue;vis(x,H/2,zc+sg*(t/2+.015),.06,H,.03,DK);}
+      for(let q=0;q<Math.floor(w/.6);q++){const x=cx-w/2+.3+q*.6;if(x>g0-.25&&x<g1+.05)continue;vis(x,H/2,zc+sg*(t/2+.015),.06,H,.03,DK);}
       vis(cx-dx,1.75,zc+sg*(t/2+.02),1.3,.9,.04,GL);vis(cx-dx,1.75,zc-sg*(t/2+.02),1.3,.9,.04,GL);};
     flo(cx,cz,w-2*t,d-2*t,'#c99a63');side(cz-d/2+t/2,-1,2.5);side(cz+d/2-t/2,1,-2.5);
     wall(cx-w/2+t/2,cz,t,d-2*t,H,BR,3.6);wall(cx+w/2-t/2,cz,t,d-2*t,H,BR,3.6);
@@ -677,13 +677,14 @@ function buildRoom(b,k,pc,mi){
     flo(cx,cz,ax?L-.02:T-2*t,ax?T-2*t:L-.02,'#6b6f85');Wl(0,-T/2+t/2,L,t,H,col);Wl(0,T/2-t/2,L,t,H,col);Wl(-sg*(L/2-t/2),0,t,T-2*t,H,col);
     for(let q=0;q<Math.floor(L/.5);q++){const l=-L/2+.25+q*.5;if(sg*l>L/2-.6)continue;for(const s of[-1,1])Vl(l,H/2,s*(T/2+.015),.12,H*.86,.03,col);}
     const lw=(T-2*t)/2;for(const s of[-1,1]){Vl(sg*(L/2-lw/2),H*.48,s*(T/2+.06),lw,H*.92,.06,col);Vl(sg*(L/2-lw*.85),H*.48,s*(T/2+.1),.04,H*.86,.04,dk);}
-    Vl(sg*(L/2-.03),H-.08,0,.06,.16,T,dk);
+    Vl(sg*(L/2-.04),H-.09,0,.06,.16,T-2*t-.02,dk);
     roofBox(cx,H+.03,cz,ax?L+.04:T+.04,.06,ax?T+.04:L+.04,dk);
   }
   const g=new THREE.Group();g.add(new THREE.Mesh(geoFrom(RP,RC,RU),matModel));const lg=new THREE.BufferGeometry();lg.setAttribute('position',new THREE.Float32BufferAttribute(REP,3));g.add(new THREE.LineSegments(lg,matInk));
-  worldG.add(g);const e=roomExt(b);roofs.push({g:g,x0:e.x0,x1:e.x1,z0:e.z0,z1:e.z1});
+  worldG.add(g);const e=roomExt(b);roofs.push({g:g,x0:e.x0,x1:e.x1,z0:e.z0,z1:e.z1,on:false});
+  if(FP.length){const fm=matModel.clone();fm.polygonOffset=true;fm.polygonOffsetFactor=-1;fm.polygonOffsetUnits=-1;worldG.add(new THREE.Mesh(geoFrom(FP,FC,FU),fm));}
 }
-function updRoofs(){if(!roofs.length)return;const T=camT||me;for(const r of roofs){const inn=(x,z)=>x>r.x0&&x<r.x1&&z>r.z0&&z<r.z1;r.g.visible=!(inn(camera.position.x,camera.position.z)||(T&&inn(T.x,T.z)));}}
+function updRoofs(){if(!roofs.length)return;const T=camT||me;if(!T)return;for(const r of roofs){const m=r.on?-.15:.75;r.on=T.x>r.x0+m&&T.x<r.x1-m&&T.z>r.z0+m&&T.z<r.z1-m;r.g.visible=!r.on;}}
 function loadMap(i){
   theme=MAPS[i];G.map=i;W=theme.w||64;D=theme.d||44;const TX=theme.tx|0,WH=W>100?7:4.5;
   if(worldG)scene.remove(worldG);if(fxG)scene.remove(fxG);

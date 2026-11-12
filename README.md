@@ -9,8 +9,10 @@ A 3D stick-figure shooter that runs in the browser — drawn in a school noteboo
 ## Features
 
 - **Third- or first-person view** (switch with `V`), crouching, jumping and diving into cover.
-- **Six modes:** team deathmatch, elimination (round-based), survival against waves, capture the flag, bomb (plant / defuse), and a battle royale for up to 128 players with a shrinking zone and loot crates (carry two main weapons).
-- **Eleven maps:** three small ones (Notebook, Cardboard, Blackboard), three medium ones modelled in Blender (Gym with climbable bleachers, Desk, Cafeteria), two large Blender maps (School with corridor and classrooms, Schoolyard with buses, trees, containers and a shed you can walk into) and three large mazes built from giant books, rulers, pencils and binders.
+- **Seven modes:** team deathmatch, elimination (round-based), survival against waves, capture the flag, bomb (plant / defuse), a battle royale for up to 128 players with a shrinking zone and loot crates (carry two main weapons), and **Conquest**: capture points A–E by standing in their circle; deaths and the enemy holding more points drain your team's tickets.
+- **Classes in Conquest:** Assault (rifle, 3 frag grenades, vest), Medic (heals the team within 6 m), Engineer (shotgun and rocket launcher, repairs nearby friendly vehicles), Sniper. Pick with `1`–`4` while respawning.
+- **Vehicles on the Front map** (seats in brackets): tank (2), armoured personnel carrier (5), Humvee with a gun turret (4), helicopter (4), jet (1). `E` gets in and out, `1`–`5` switch seats. Tanks and APCs: `WASD` drive, the mouse aims the gun. Helicopter: `W`/`S` forward and back, `Space`/`C` up and down. Jet: `W`/`S` throttle, the mouse steers. Bots drive ground vehicles and ride as gunners.
+- **Thirteen maps:** **Front** (520×360, built for Conquest with vehicles: a village, a farm, a market square with a church, forests and two airfields), **Town** (240×170, Conquest without vehicles: narrow streets and a square with a fountain), three small ones (Notebook, Cardboard, Blackboard), three medium ones modelled in Blender (Gym with climbable bleachers, Desk, Cafeteria), two large Blender maps (School with corridor and classrooms, Schoolyard with buses, trees, containers and a shed you can walk into) and three large mazes built from giant books, rulers, pencils and binders.
 - **Economy and shop:** money for kills, headshots, surviving and winning rounds. Twelve guns (incl. revolver, MP5, burst rifle, grenade launcher), a knife, weapon mods (suppressor, red dot, extended mag, grip), vest and helmet, medkit, frag, flash and smoke grenades.
 - **Bots** with three difficulty levels fill empty slots and play the objectives.
 - **Online play without a server:** players connect browser-to-browser. The first person in a room becomes the host, starts the match from the lobby and can send an invite link.
@@ -35,7 +37,7 @@ A 3D stick-figure shooter that runs in the browser — drawn in a school noteboo
 | `1` `2` `Q` / wheel | Switch weapon |
 | `3` `4` `5` | Choose grenade (frag / flash / smoke) |
 | `G` | Throw grenade |
-| `E` | Open a crate / pick up a weapon or item (nothing is picked up automatically) |
+| `E` | Open a crate / pick up a weapon or item / get in or out of a vehicle (nothing is picked up automatically) |
 | `F` / middle mouse button | Knife |
 | `B` | Shop |
 | `Tab` | Scoreboard |
@@ -71,8 +73,9 @@ Strzelanka 3D z patyczakami w przeglądarce, narysowana w zeszycie. Grasz sam z 
 
 **Graj:** https://fifsok-star.github.io/stick-figure-wars/
 
-- **Tryby:** drużynowy deathmatch, eliminacja (na rundy), przetrwanie, zdobądź flagę, bomba, battle royale do 50 graczy.
-- **Mapy:** Zeszyt, Karton, Tablica (małe) oraz Segregator, Hala, Aula (duże labirynty z wysokich murów).
+- **Tryby:** drużynowy deathmatch, eliminacja (na rundy), przetrwanie, zdobądź flagę, bomba, battle royale do 128 graczy oraz **Podbój** (punkty A–E, bilety drużyn, klasy: szturmowiec, medyk, inżynier, snajper).
+- **Pojazdy na mapie Front** (liczba miejsc): czołg (2), transporter (5), humvee z wieżyczką (4), helikopter (4), samolot (1). `E` — wsiadanie i wysiadanie, `1`–`5` — zmiana miejsca.
+- **Mapy:** Zeszyt, Karton, Tablica (małe), Segregator, Hala, Aula (labirynty), Sala gimnastyczna, Biurko, Stołówka, Szkoła, Podwórko oraz Front (olbrzymia, z pojazdami) i Miasteczko (podbój bez pojazdów).
 - **Gra przez internet:** wszyscy wpisują ten sam kod pokoju albo host wysyła link z przycisku **Zaproś**. Pierwsza osoba jest hostem i startuje mecz z poczekalni, boty zajmują wolne miejsca.
 - **Skrzynki i broń:** `E` otwiera skrzynkę i podnosi wybrany przedmiot — nic nie zbiera się samo.
 - **Sterowanie:** tabela wyżej; na telefonie przyciski na ekranie.

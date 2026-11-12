@@ -10,7 +10,7 @@ A 3D stick-figure shooter that runs in the browser — drawn in a school noteboo
 
 - **Third- or first-person view** (switch with `V`), crouching, jumping and diving into cover.
 - **Six modes:** team deathmatch, elimination (round-based), survival against waves, capture the flag, bomb (plant / defuse), and a battle royale for up to 128 players with a shrinking zone and loot crates (carry two main weapons).
-- **Nine maps:** three small ones (Notebook, Cardboard, Blackboard), three medium ones modelled in Blender (Gym with climbable bleachers, Desk, Cafeteria) and three large mazes with tall walls built from giant books, rulers, pencils and binders.
+- **Eleven maps:** three small ones (Notebook, Cardboard, Blackboard), three medium ones modelled in Blender (Gym with climbable bleachers, Desk, Cafeteria), two large Blender maps (School with corridor and classrooms, Schoolyard with buses, containers and trees) and three large mazes built from giant books, rulers, pencils and binders.
 - **Economy and shop:** money for kills, headshots, surviving and winning rounds. Twelve guns (incl. revolver, MP5, burst rifle, grenade launcher), a knife, weapon mods (suppressor, red dot, extended mag, grip), vest and helmet, medkit, frag, flash and smoke grenades.
 - **Bots** with three difficulty levels fill empty slots and play the objectives.
 - **Online play without a server:** players connect browser-to-browser. The first person in a room becomes the host, starts the match from the lobby and can send an invite link.

@@ -34,7 +34,7 @@ A 3D stick-figure shooter that runs in the browser — drawn in a school noteboo
 | `1` `2` `Q` / wheel | Switch weapon |
 | `3` `4` `5` | Choose grenade (frag / flash / smoke) |
 | `G` | Throw grenade |
-| `E` | Pick up weapon |
+| `E` | Open a crate / pick up a weapon or item (nothing is picked up automatically) |
 | `F` / middle mouse button | Knife |
 | `B` | Shop |
 | `Tab` | Scoreboard |
@@ -73,6 +73,7 @@ Strzelanka 3D z patyczakami w przeglądarce, narysowana w zeszycie. Grasz sam z 
 - **Tryby:** drużynowy deathmatch, eliminacja (na rundy), przetrwanie, zdobądź flagę, bomba, battle royale do 50 graczy.
 - **Mapy:** Zeszyt, Karton, Tablica (małe) oraz Segregator, Hala, Aula (duże labirynty z wysokich murów).
 - **Gra przez internet:** wszyscy wpisują ten sam kod pokoju albo host wysyła link z przycisku **Zaproś**. Pierwsza osoba jest hostem i startuje mecz z poczekalni, boty zajmują wolne miejsca.
+- **Skrzynki i broń:** `E` otwiera skrzynkę i podnosi wybrany przedmiot — nic nie zbiera się samo.
 - **Sterowanie:** tabela wyżej; na telefonie przyciski na ekranie.
 - **Język** zmienisz w menu w polu „Język”.
 

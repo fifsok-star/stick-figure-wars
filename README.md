@@ -38,7 +38,7 @@ A 3D stick-figure shooter that runs in the browser — drawn in a school noteboo
 | `B` | Shop |
 | `Tab` | Scoreboard |
 | `Enter` / `Y` | Chat to all / to team |
-| `V` | First / third person |
+| `V` | First / third person; when spectating: follow, player's eyes, free camera, overhead |
 | `Esc` | Pause, settings, switch team, spectate |
 
 On phones the game shows on-screen buttons: the left side of the screen moves, the right side aims.

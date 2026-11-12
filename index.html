@@ -1354,7 +1354,7 @@ function updateMe(dt){
   if(BR()&&G.ph==='live'&&Math.hypot(me.x,me.z)>G.zr){damage(me,7*dt,me.id,'zone',false);if(!me.alive)return;}
   const w=WEAPONS[me.weapon],a=inv.ammo[me.weapon];
   if(me.boltT>0)me.boltT-=dt;
-  scoped=!!(scopeWant&&!w.melee&&me.rel<=0&&me.st!==2&&!shopOpen&&(me.boltT<=0||me.boltT>60/w.rpm-.14));
+  scoped=!!(scopeWant&&!w.melee&&!(me.knA>0)&&me.rel<=0&&me.st!==2&&!shopOpen&&(me.boltT<=0||me.boltT>60/w.rpm-.14));
   let ix=(keys.KeyD?1:0)-(keys.KeyA?1:0)+touch.mx,iz=(keys.KeyS?1:0)-(keys.KeyW?1:0)+touch.mz;
   if(keys.ArrowLeft)me.yaw+=dt*2.2;if(keys.ArrowRight)me.yaw-=dt*2.2;
   const il=Math.hypot(ix,iz);if(il>1){ix/=il;iz/=il;}

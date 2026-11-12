@@ -26,7 +26,7 @@ A 3D stick-figure shooter that runs in the browser — drawn in a school noteboo
 | `W` `A` `S` `D` | Move |
 | Mouse | Aim |
 | Left click | Shoot |
-| Right click | Sniper scope / aim through the red dot |
+| Right click | Aim down sights (every gun; sniper scope, stronger zoom with a red dot) |
 | `Space` | Jump |
 | `C` | Crouch |
 | `Shift` | Dive to cover |

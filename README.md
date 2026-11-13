@@ -86,3 +86,6 @@ Strzelanka 3D z patyczakami w przeglądarce, narysowana w zeszycie. Grasz sam z 
 - **Język** zmienisz w menu w polu „Język”.
 
 Gracze łączą się bezpośrednio przeglądarka–przeglądarka, bez serwera gry. W niektórych sieciach (firmowych, części sieci komórkowych) połączenie może się nie udać.
+
+### Survival
+Waves keep coming until the whole team is down. Every 3rd wave brings a **boss** (bigger, much tougher, heavy machine gun, $1000 for the kill). The four Conquest classes work here too — gadgets on `Z`, medics revive fallen defenders (hold `E`), and you pick your class with `1–4` while dead or from the pause menu.

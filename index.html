@@ -683,19 +683,21 @@ function drawDep(){
 /* panel oddziału: nazwa, koledzy z klasą i zdrowiem */
 let sqKey='';
 function drawSquad(){
-  const p=$('sqP'),show=CQM()&&!me.spec&&G.ph!=='lobby';p.hidden=!show;if(!show)return;
-  const L=[me].concat(sqMates(me)),CL=['Sz','Me','In','Sn'],key=(me.sq|0)+'|'+L.map(o=>o.name+(o.alive?Math.ceil(o.hp/10):'x')+(o.cls|0)+(o.veh>=0?'v':'')).join(',');if(key===sqKey)return;sqKey=key;
+  const p=$('sqP'),show=SQM()&&!me.spec&&G.ph!=='lobby';p.hidden=!show;if(!show)return;
+  const L=[me].concat(sqMates(me)),CL=CQM()?['Sz','Me','In','Sn']:[],key=(me.sq|0)+'|'+L.map(o=>o.name+(o.alive?Math.ceil(o.hp/10):'x')+(o.cls|0)+(o.veh>=0?'v':'')).join(',');if(key===sqKey)return;sqKey=key;
   p.textContent='';const h=document.createElement('b');h.textContent=tr('Oddział')+' '+SQN[(me.sq|0)%SQN.length];p.appendChild(h);
-  for(const o of L){const d=document.createElement('div');if(o===me)d.className='me';if(!o.alive)d.classList.add('dead');const c=document.createElement('i');c.textContent=CL[o.cls|0]||'';d.appendChild(c);d.append(' '+o.name+(o.veh>=0&&vOf(o)?' · '+tr(VT[vOf(o).type].name):''));
+  for(const o of L){const d=document.createElement('div');if(o===me)d.className='me';if(!o.alive)d.classList.add('dead');if(CL.length){const c=document.createElement('i');c.textContent=CL[o.cls|0]||'';d.appendChild(c);d.append(' ');}d.append(o.name+(o.veh>=0&&vOf(o)?' · '+tr(VT[vOf(o).type].name):''));
     const bar=document.createElement('span');bar.style.width=(o.alive?Math.max(4,o.hp)*.36:0)+'px';d.appendChild(bar);p.appendChild(d);}
 }
 function drawCls(){const b=$('clsBar');if(!b)return;[...b.querySelectorAll('button')].forEach((x,i)=>x.classList.toggle('on',i===myCls));}
 /* oddziały po 4 osoby w każdej drużynie: ludzie najpierw, potem boty; wszyscy liczą to tak samo, więc nie trzeba tego przesyłać */
+/* oddziały we wszystkich trybach drużynowych (bez battle royale) */
+function SQM(){return !!G&&G.mode!==5;}
 const SQN=['Alfa','Bravo','Charlie','Delta','Echo','Foxtrot','Golf','Hotel','India','Juliett','Kilo','Lima','Mike','November','Oscar','Papa'];
 let sqT=0,mySpw='hq',depWant=false,depKey='';
 function sqCmp(a,b){if(a.human!==b.human)return a.human?-1:1;const na=a.bot?+a.id.slice(1):0,nb=b.bot?+b.id.slice(1):0;return a.bot?na-nb:(a.id<b.id?-1:a.id>b.id?1:0);}
 function sqUpdate(){for(let t=0;t<2;t++){const L=[];for(const e of ents.values())if(!e.spec&&(e.team&1)===t&&e.team<2)L.push(e);L.sort(sqCmp);L.forEach((e,i)=>{const s=(i/4)|0;if(e.sq!==s){e.sq=s;e.sqDirty=true;}});}
-  for(const e of ents.values())if(e.sqDirty&&e.m&&e.m.tag&&me){e.sqDirty=false;const mate=e!==me&&e.team===me.team&&e.sq===me.sq&&CQM();if(e.m.mate!==mate){e.m.root.remove(e.m.tag);e.m.tag=makeTag(e.name,mate?'#1f9d4a':colOf(e));e.m.root.add(e.m.tag);e.m.mate=mate;}}}
+  for(const e of ents.values())if(e.sqDirty&&e.m&&e.m.tag&&me){e.sqDirty=false;const mate=e!==me&&e.team===me.team&&e.sq===me.sq&&SQM();if(e.m.mate!==mate){e.m.root.remove(e.m.tag);e.m.tag=makeTag(e.name,mate?'#1f9d4a':colOf(e));e.m.root.add(e.m.tag);e.m.mate=mate;}}}
 function sqMates(e){const L=[];for(const o of ents.values())if(o!==e&&!o.spec&&o.team===e.team&&o.sq===e.sq)L.push(o);return L.sort(sqCmp);}
 function mateSpawnOK(o){return o&&o.alive&&!o.spec&&(o.veh<0||(vOf(o)&&freeSeat(vOf(o))>=0));}
 /* w walce: strzelał lub oberwał w ciągu 5 s albo wróg jest bliżej niż 20 m — wtedy nie można się na nim odrodzić */
@@ -2428,6 +2430,8 @@ function botGoal(b){
     if(rng32(((now()/9)|0)*7+n)()<.35)return patrol(n,W*.08,0,D*.32);const s=site(n%2);return patrol(n,s[0],s[1],9);}
   if(m===5){if(Math.hypot(b.x,b.z)>G.zr*.85)return[0,0,1];
     if(b.weapon==='glok'){let best=null,bd=45;for(const p of picks.values()){const d=Math.hypot(p.x-b.x,p.z-b.z);if(d<bd){bd=d;best=p;}}if(best)return[best.x,best.z,0];}}
+  // deathmatch i eliminacja: bot trzyma się dowódcy swojego oddziału (pierwszego żywego, gracze mają pierwszeństwo)
+  if((m===0||m===1)&&b.team<2){const L=[b].concat(sqMates(b)).sort(sqCmp),ld=L.find(o=>o.alive&&!o.spec);if(ld&&ld!==b&&Math.hypot(ld.x-b.x,ld.z-b.z)>16)return patrol(n,ld.x,ld.z,6);}
   return null;
 }
 function turn(a,b,max){let d=b-a;while(d>Math.PI)d-=Math.PI*2;while(d<-Math.PI)d+=Math.PI*2;return a+clamp(d,-max,max);}
@@ -2999,7 +3003,7 @@ function drawBoard(id){
   const body=$(id||'boardBody');body.textContent='';
   $('boardInfo').textContent=tr(MODES[G.mode].name+' · '+MAPS[G.map].name+(R?' · pokój online':' · gra solo'));
   const row=(e,t)=>{const trw=document.createElement('tr');trw.className='t'+t+(e===me?' me':'')+(e.alive?'':' dead');
-    [(CQM()?'['+SQN[(e.sq|0)%SQN.length]+'] ':'')+e.name+(e.bot?' '+tr('(bot)'):''),e.k,e.d,Math.round(e.dmg||0),(e===me||(!BR()&&e.team===me.team)?'$'+e.money:'—')].forEach(v=>{const td=document.createElement('td');td.textContent=String(v);trw.appendChild(td);});body.appendChild(trw);};
+    [(SQM()?'['+SQN[(e.sq|0)%SQN.length]+'] ':'')+e.name+(e.bot?' '+tr('(bot)'):''),e.k,e.d,Math.round(e.dmg||0),(e===me||(!BR()&&e.team===me.team)?'$'+e.money:'—')].forEach(v=>{const td=document.createElement('td');td.textContent=String(v);trw.appendChild(td);});body.appendChild(trw);};
   if(BR()){const L=[];for(const e of ents.values())if(!e.spec)L.push(e);L.sort((a,b)=>(b.alive-a.alive)||b.k-a.k);L.slice(0,16).forEach(e=>row(e,tc(e)));return;}
   for(let t=0;t<2;t++){
     const L=[];for(const e of ents.values())if(!e.spec&&e.team===t)L.push(e);L.sort((a,b)=>b.k-a.k);L.forEach(e=>row(e,t));
@@ -3028,7 +3032,7 @@ function drawMini(){
     x.fillStyle=occ?TEAMC[vt]:'#8a8f99';x.strokeStyle='#1b1f3a';x.lineWidth=1.5;x.fillRect(X(v.x)-6,Z(v.z)-6,12,12);x.strokeRect(X(v.x)-6,Z(v.z)-6,12,12);x.fillStyle='#fff';x.font='bold 9px sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText(VT[v.type].letter,X(v.x),Z(v.z)+.5);x.textAlign='start';x.textBaseline='alphabetic';}
   for(const e of ents.values()){
     if(!e.alive||e.spec)continue;if(e.team!==my.team&&!e.vis&&!me.spec)continue;if(e.veh>=0&&e!==my)continue;
-    x.fillStyle=(CQM()&&e!==my&&e.team===my.team&&e.sq===my.sq)?'#1f9d4a':colOf(e);x.beginPath();x.arc(X(e.x),Z(e.z),e===my?7:5,0,6.3);x.fill();
+    x.fillStyle=(SQM()&&e!==my&&e.team===my.team&&e.sq===my.sq)?'#1f9d4a':colOf(e);x.beginPath();x.arc(X(e.x),Z(e.z),e===my?7:5,0,6.3);x.fill();
     if(e===my){x.strokeStyle=theme.ink;x.lineWidth=3;x.beginPath();x.moveTo(X(e.x),Z(e.z));x.lineTo(X(e.x)-Math.sin(e.yaw)*16,Z(e.z)-Math.cos(e.yaw)*16);x.stroke();}
   }
 }

@@ -905,7 +905,7 @@ function vFire(e,v,dir){
 }
 /* ---------- fizyka (liczy ten, kto prowadzi; pusty pojazd liczy host) ---------- */
 function vehCollide(v,r){
-  const heavy=(v.type==='tank'||v.type==='apc')&&Math.abs(v.spd||0)>2.5,smash=[];
+  const heavy=(v.type==='tank'||v.type==='apc')&&Math.abs(v.spd||0)>2.5&&!noDestr(),smash=[];
   for(const b of boxesNear(v.x,v.z,r+.5)){if(b.h<=v.y+.6||(b.y0&&b.y0>v.y+2.2)||b.dead)continue;const nx=clamp(v.x,b.x0,b.x1),nz=clamp(v.z,b.z0,b.z1),dx=v.x-nx,dz=v.z-nz,d2=dx*dx+dz*dz;if(d2>=r*r)continue;
     if(b.glass){smash.push(b);continue;}if(heavy&&b.hp&&b.mhp<=200&&b.role!=='stair'){smash.push(b);v.spd*=.9;continue;}
     if(d2>1e-8){const d=Math.sqrt(d2);v.x=nx+dx/d*r;v.z=nz+dz/d*r;}else{v.x+=(Math.random()-.5)*.2;}v.hitW=true;}
@@ -1556,15 +1556,17 @@ function collapseHouse(H){
   rubble(H.cx,0,H.cz,60,Math.min(H.w,H.d)*.95,H.wc);rubble(H.cx,0,H.cz,30,Math.max(H.w,H.d),'#8a8378');boom(H.cx,H.h*.4,H.cz,'dust');for(let k=0;k<5;k++){const pf=puffs[puffI=(puffI+1)%puffs.length];if(pf){pf.s.position.set(H.cx+(Math.random()-.5)*H.w,1+Math.random()*3,H.cz+(Math.random()-.5)*H.d);pf.t=0;pf.s.visible=true;pf.vx=gauss();pf.vy=1;pf.vz=gauss();}}
   sndAt('boom',H.cx,H.cz);sndAt('crash',H.cx,H.cz,0,2);
 }
+/* niszczenie tylko w podboju i battle royale; w pozostałych trybach obiekty są niezniszczalne (szyby nadal się tłuką) */
+function noDestr(){return !!G&&G.mode!==5&&G.mode!==6;}
 function damageArea(x,y,z,R,pow,net){
-  if(!BYID.length)return;const hit=[];const seen=new Set();
+  if(!BYID.length||noDestr())return;const hit=[];const seen=new Set();
   for(let gx=x-R;gx<=x+R+GC;gx+=GC)for(let gz=z-R;gz<=z+R+GC;gz+=GC){for(const b of cellAt(Math.min(gx,x+R),Math.min(gz,z+R))){if(seen.has(b)||!b.hp||b.dead||b.glass)continue;seen.add(b);
     const dx=Math.max(b.x0-x,0,x-b.x1),dz=Math.max(b.z0-z,0,z-b.z1),dy=Math.max((b.y0||0)-y,0,y-b.h),d=Math.hypot(dx,dy,dz);if(d>=R)continue;
     b.hp-=pow*(1-d/R);if(b.hp<=0)hit.push(b);}}
   for(const b of hit)destroyBox(b);
   if(net&&hit.length)for(let k=0;k<hit.length;k+=40)pushEv(['bx'].concat(hit.slice(k,k+40).map(b=>b.bid)));
 }
-function shootBox(b,d){if(!b.hp||b.dead||b.stump)return;b.hp-=d*(b.h>1.3?.35:.6);if(b.hp<=0){destroyBox(b);pushEv(['bx',b.bid]);}}
+function shootBox(b,d){if(noDestr()||!b.hp||b.dead||b.stump)return;b.hp-=d*(b.h>1.3?.35:.6);if(b.hp<=0){destroyBox(b);pushEv(['bx',b.bid]);}}
 function restoreWorld(){
   if(!destroyed.length&&!craN&&!rubN)return;
   for(const b of destroyed){if(b.stump){b.stump=false;b.h=b.h0;}else{b.dead=false;boxes.push(b);}b.hp=b.mhp;}destroyed=[];

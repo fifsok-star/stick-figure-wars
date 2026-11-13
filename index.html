@@ -3031,7 +3031,8 @@ function drawMapTo(x,cw,ch,mp){
 }
 function drawMiniBase(){miniBase=document.createElement('canvas');miniBase.width=300;miniBase.height=206;drawMapTo(miniBase.getContext('2d'),300,206,theme);}
 function drawMini(){
-  const c=$('mini'),x=c.getContext('2d');if(!miniBase)return;x.drawImage(miniBase,0,0);const T=mapTf(300,206,W,D),k=T[0],X=v=>T[1]+(v+W/2)*k,Z=v=>T[2]+(v+D/2)*k,my=camT||me;
+  {const h=$('hud'),f=G.ph==='over';if(h.classList.contains('fin')!==f)h.classList.toggle('fin',f);}
+  const c=$('mini'),x=c.getContext('2d');if(!miniBase){try{drawMiniBase();}catch(e){return;}}x.drawImage(miniBase,0,0);const T=mapTf(300,206,W,D),k=T[0],X=v=>T[1]+(v+W/2)*k,Z=v=>T[2]+(v+D/2)*k,my=camT||me;
   if(BR()){x.strokeStyle='#d42a2a';x.lineWidth=3;x.beginPath();x.arc(X(0),Z(0),G.zr*k,0,6.3);x.stroke();for(const p of picks.values())if(p.kind==='c'){x.fillStyle='#c79e68';x.fillRect(X(p.x)-2,Z(p.z)-2,4,4);}}
   if(G.mode===3&&G.fl)for(let t=0;t<2;t++){x.fillStyle=TEAMC[t];x.fillRect(X(G.fl[t][1])-2,Z(G.fl[t][2])-12,3,12);x.fillRect(X(G.fl[t][1]),Z(G.fl[t][2])-12,9,6);}
   if(G.mode===4&&G.bm){x.fillStyle='#d42a2a';x.font='bold 18px sans-serif';for(let q=0;q<2;q++){const st=site(q);x.fillText(q?'B':'A',X(st[0])-6,Z(st[1])+6);}if(G.bm[0]===1||G.bm[0]===2){x.beginPath();x.arc(X(G.bm[1]),Z(G.bm[2]),5,0,6.3);x.fill();}}

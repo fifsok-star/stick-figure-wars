@@ -1767,7 +1767,7 @@ function animEnt(e,dt){
   m.helmet.visible=!!e.helmet;m.vest.visible=e.armor>0;
   if(m.tag){m.tag.visible=e.alive;const dd=Math.hypot(e.x-camera.position.x,e.z-camera.position.z),k=clamp(dd/14,.3,specOK()&&specCam===3?Math.max(1,camera.position.y/22):1);m.tag.scale.set(2.2*k,.55*k,1);if(m.hb)m.hb.scale.set(1.1*Math.max(k,.5),.14*Math.max(k,.5),1);}
   {const top=specOK()&&specCam===3&&e.alive&&!e.spec;m.mk.visible=top;if(top){const s=camera.position.y/28;m.mk.scale.set(s,s,1);}}
-  if(m.hb){const h=Math.ceil(e.hp);m.hb.visible=e.alive&&h<100;
+  if(m.hb){const h=Math.ceil(e.hp);m.hb.visible=e.alive&&h<100&&h>0;
     if(m.hb.visible&&h!==e.hpD){e.hpD=h;const g=m.hb.userData.c.getContext('2d');g.clearRect(0,0,128,16);g.fillStyle='#1b1f3a';g.fillRect(0,0,128,16);g.fillStyle='#f7f5ee';g.fillRect(2,2,124,12);
       g.fillStyle=h>60?'#2f8f4e':h>30?'#e0a020':'#d42a2a';g.fillRect(2,2,124*Math.max(0,h)/100,12);m.hb.material.map.needsUpdate=true;}}
   e.kickT=Math.max(0,e.kickT-dt*9);let ph=0;
@@ -2650,12 +2650,12 @@ function syncBots(str){
   if(typeof str==='string'&&str.length<9000){
     const d1=i=>AI[str[i]]|0,d2=i=>(AI[str[i]]|0)*90+(AI[str[i+1]]|0);
     for(let o=0;o+24<=str.length;o+=24){
-      const id='b'+d2(o),team=d2(o+2),fl=d1(o+13),ni=d2(o+18);ids.add(id);let b=ents.get(id);
+      const id='b'+d2(o),team=d2(o+2),fl=d1(o+12),ni=d2(o+18);ids.add(id);let b=ents.get(id);
       const x=d2(o+4)/8099*W-W/2,y=d1(o+6)/8,z=d2(o+7)/8099*D-D/2;
       if(!b||b.team!==team||!b.bot){if(b)removeEnt(id);b=mkEnt(id,BOTN[ni%BOTN.length]+(ni>=BOTN.length?' '+(1+((ni/BOTN.length)|0)):''),team,'bot');b.ni=ni;b.x=x;b.y=y;b.z=z;b.deadT=9;}
       b.tx=x;b.ty=y;b.tz=z;b.tyaw=d1(o+9)/90*Math.PI*2;b.tpitch=d1(o+10)/89*2.8-1.4;b.hp=d1(o+11)/.89;
       const al=!!(fl&1);if(b.alive&&!al)b.deadT=0;if(!b.alive&&al){b.x=x;b.y=y;b.z=z;b.gib=false;}b.alive=al;
-      b.armor=fl&2?100:0;b.helmet=!!(fl&4);b.st=clamp(fl>>3,0,2);b.weapon=WIDS[d1(o+12)]||'glok';b.k=d1(o+14);b.d=d1(o+15);b.dmg=d2(o+16)*4;{const vi=d1(o+20)-1;b.veh=vehs[vi]?vi:-1;b.seat=b.veh>=0?d1(o+21)-1:-1;b.cls=d1(o+22)&3;}
+      b.armor=fl&2?100:0;b.helmet=!!(fl&4);b.st=clamp(fl>>3,0,2);b.weapon=WIDS[d1(o+13)]||'glok';b.k=d1(o+14);b.d=d1(o+15);b.dmg=d2(o+16)*4;{const vi=d1(o+20)-1;b.veh=vehs[vi]?vi:-1;b.seat=b.veh>=0?d1(o+21)-1:-1;b.cls=d1(o+22)&3;}
     }
   }
   for(const e of[...ents.values()])if(e.bot&&!ids.has(e.id))removeEnt(e.id);
@@ -3258,7 +3258,7 @@ function init(){
   else if(window.Peer){roomCap=p2pRoom();setTx($('mpNote'),'Gra przez internet: wpiszcie ten sam kod pokoju albo wyślij link z przycisku Zaproś. Pierwsza osoba zostaje hostem i startuje mecz. Bez kodu grasz solo z botami.');}
   else{$('room').disabled=true;setTx($('mpNote'),'Gra z ludźmi działa po otwarciu strony w Claude. Tutaj zagrasz solo z botami.');}
 }
-window.__patyki={explode:explode,tick:tick,ray:rayWorld,V:()=>vehs,CQ:()=>CQ,boxes:()=>boxes,enter:(i,k)=>{const v=vehs[i];if(v)enterVeh(me,v,k===undefined?freeSeat(v,0):k);},useKey:()=>useKey(),start:function(c){spectating=false;startMatch(c,false);if(c.touch)setTouch();},state:function(){return{G:G,me:me,ents:ents,inv:inv,cam:cam,scoped:scoped,toggleView:toggleView,hostStart:hostNewMatch,throwGren:throwGren,setTeam:setTeam,setSpec:setSpec,picks:picks,scopeWant:function(v){scopeWant=v;},deploy:function(){depWant=true;},destr:()=>({navMs:navMs,navCnt:navCnt,destroyed:destroyed.length,houses:houses.length,col:houses.filter(h=>h.col).length,byid:BYID.length}),damageArea:damageArea,houses:()=>{const d=doors[0];if(!d)return{panes:panes.length,doors:0};const ox=d.cx+(d.cx-roofCenter(d).x)*0,c=roofCenter(d);const vx=d.cx-c.x,vz=d.cz-c.z,l=Math.hypot(vx,vz)||1;return{panes:panes.length,doors:doors.length,d0:{cx:d.cx,cz:d.cz,hx:d.x,hz:d.z,ox:d.cx+vx/l*2.5,oz:d.cz+vz/l*2.5,yawIn:Math.atan2(vx,vz)}};},breakPane:breakPane,damage:damage,downed:downed,deps:()=>deps,gadget:()=>useGadget(me)};},buy:buy,keys:keys,fire:function(v){firing=v;firedPress=false;}};
+window.__patyki={explode:explode,tick:tick,ray:rayWorld,V:()=>vehs,CQ:()=>CQ,boxes:()=>boxes,enter:(i,k)=>{const v=vehs[i];if(v)enterVeh(me,v,k===undefined?freeSeat(v,0):k);},useKey:()=>useKey(),start:function(c){spectating=false;startMatch(c,false);if(c.touch)setTouch();},state:function(){return{hit:applyHit,G:G,me:me,ents:ents,inv:inv,cam:cam,scoped:scoped,toggleView:toggleView,hostStart:hostNewMatch,throwGren:throwGren,setTeam:setTeam,setSpec:setSpec,picks:picks,scopeWant:function(v){scopeWant=v;},deploy:function(){depWant=true;},destr:()=>({navMs:navMs,navCnt:navCnt,destroyed:destroyed.length,houses:houses.length,col:houses.filter(h=>h.col).length,byid:BYID.length}),damageArea:damageArea,houses:()=>{const d=doors[0];if(!d)return{panes:panes.length,doors:0};const ox=d.cx+(d.cx-roofCenter(d).x)*0,c=roofCenter(d);const vx=d.cx-c.x,vz=d.cz-c.z,l=Math.hypot(vx,vz)||1;return{panes:panes.length,doors:doors.length,d0:{cx:d.cx,cz:d.cz,hx:d.x,hz:d.z,ox:d.cx+vx/l*2.5,oz:d.cz+vz/l*2.5,yawIn:Math.atan2(vx,vz)}};},breakPane:breakPane,damage:damage,downed:downed,deps:()=>deps,gadget:()=>useGadget(me)};},buy:buy,keys:keys,fire:function(v){firing=v;firedPress=false;}};
 if(typeof THREE==='undefined'){$('status').textContent='Nie udało się wczytać silnika 3D. Odśwież stronę.';}
 else init();
 })();

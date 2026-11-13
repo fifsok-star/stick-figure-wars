@@ -3000,15 +3000,18 @@ function feed(a,ta,b,tb,how){
   x.className='t'+ta;x.textContent=a;m.textContent=' ✕ '+tr(how)+' ✕ ';y.className='t'+tb;y.textContent=b;d.appendChild(x);d.appendChild(m);d.appendChild(y);
   const f=$('feed');f.appendChild(d);while(f.children.length>5)f.removeChild(f.firstChild);setTimeout(()=>d.remove(),6000);
 }
+/* kolejność w tabeli: więcej zabójstw, potem mniej śmierci, potem więcej obrażeń */
+function rankCmp(a,b){return (b.k|0)-(a.k|0)||(a.d|0)-(b.d|0)||(b.dmg||0)-(a.dmg||0)||(a.name<b.name?-1:1);}
 function drawBoard(id){
   const body=$(id||'boardBody');body.textContent='';
   $('boardInfo').textContent=tr(MODES[G.mode].name+' · '+MAPS[G.map].name+(R?' · pokój online':' · gra solo'));
   const row=(e,t)=>{const trw=document.createElement('tr');trw.className='t'+t+(e===me?' me':'')+(e.alive?'':' dead');
     [(SQM()?'['+SQN[(e.sq|0)%SQN.length]+'] ':'')+e.name+(e.bot?' '+tr('(bot)'):''),e.k,e.d,Math.round(e.dmg||0),(e===me||(!BR()&&e.team===me.team)?'$'+e.money:'—')].forEach(v=>{const td=document.createElement('td');td.textContent=String(v);trw.appendChild(td);});body.appendChild(trw);};
-  if(BR()){const L=[];for(const e of ents.values())if(!e.spec)L.push(e);L.sort((a,b)=>(b.alive-a.alive)||b.k-a.k);L.slice(0,16).forEach(e=>row(e,tc(e)));return;}
-  for(let t=0;t<2;t++){
-    const L=[];for(const e of ents.values())if(!e.spec&&e.team===t)L.push(e);L.sort((a,b)=>b.k-a.k);L.forEach(e=>row(e,t));
-    if(t===0){const sp=document.createElement('tr');sp.className='sep';const td=document.createElement('td');td.colSpan=5;sp.appendChild(td);body.appendChild(sp);}
+  if(BR()){const L=[];for(const e of ents.values())if(!e.spec)L.push(e);L.sort((a,b)=>(b.alive-a.alive)||rankCmp(a,b));L.slice(0,16).forEach(e=>row(e,tc(e)));return;}
+  const sc=G.sc||[0,0],mt=me.team&1,TO=sc[0]!==sc[1]?(sc[0]>sc[1]?[0,1]:[1,0]):[mt,1-mt];// lepsza drużyna wyżej
+  for(let q=0;q<2;q++){const t=TO[q];
+    const L=[];for(const e of ents.values())if(!e.spec&&e.team===t)L.push(e);L.sort(rankCmp);L.forEach(e=>row(e,t));
+    if(q===0){const sp=document.createElement('tr');sp.className='sep';const td=document.createElement('td');td.colSpan=5;sp.appendChild(td);body.appendChild(sp);}
   }
 }
 let miniBase=null;

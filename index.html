@@ -691,8 +691,8 @@ function drawSquad(){
 }
 function drawCls(){const b=$('clsBar');if(!b)return;[...b.querySelectorAll('button')].forEach((x,i)=>x.classList.toggle('on',i===myCls));}
 /* oddziały po 4 osoby w każdej drużynie: ludzie najpierw, potem boty; wszyscy liczą to tak samo, więc nie trzeba tego przesyłać */
-/* oddziały we wszystkich trybach drużynowych (bez battle royale) */
-function SQM(){return !!G&&G.mode!==5;}
+/* oddziały po 4 tylko w podboju */
+function SQM(){return CQM();}
 const SQN=['Alfa','Bravo','Charlie','Delta','Echo','Foxtrot','Golf','Hotel','India','Juliett','Kilo','Lima','Mike','November','Oscar','Papa'];
 let sqT=0,mySpw='hq',depWant=false,depKey='';
 function sqCmp(a,b){if(a.human!==b.human)return a.human?-1:1;const na=a.bot?+a.id.slice(1):0,nb=b.bot?+b.id.slice(1):0;return a.bot?na-nb:(a.id<b.id?-1:a.id>b.id?1:0);}
@@ -1980,11 +1980,16 @@ function mkEnt(id,name,team,kind){
 }
 function removeEnt(id){const e=ents.get(id);if(!e)return;if(e.m)scene.remove(e.m.root);ents.delete(id);}
 function owns(e){return e===me||(e.bot&&isHost);}
+/* start rozgrywki: każda drużyna razem przy swoim krańcu mapy (niebiescy z lewej, czerwoni z prawej) */
+function edgeSpawn(e,idx){const sg=e.team?1:-1,i=idx|0,x0=sg*(W/2-Math.max(3.5,Math.min(7,W*.05)));
+  for(let k=0;k<12;k++){const z=clamp(((i%8)-3.5)*2.6+(Math.random()-.5)*(1.5+k),-D/2+3,D/2-3),x=x0-sg*(((i/8)|0)*2.6+Math.random()*(1.5+k*.5));const c=cellIdx(x,z);if(!navB[c]){let ok=true;for(const o of ents.values())if(o!==e&&o.alive&&Math.hypot(o.x-x,o.z-z)<1.2){ok=false;break;}if(ok)return cellPos(c);}}
+  return snap(x0,0);}
 function spawnAt(e,idx){
   let p=null;
   if(BR()){let bs=-1;for(let k=0;k<60;k++){const c=(Math.random()*NC*NR)|0;if(navB[c])continue;const q=cellPos(c);let md=1e9;for(const o of ents.values())if(o!==e&&o.alive)md=Math.min(md,Math.hypot(o.x-q[0],o.z-q[1]));if(md>bs){bs=md;p=q;}if(md>22)break;}p=p||[0,0];}
   else if(G.mode===6)p=cqSpawn(e);
   else if(G.mode===2&&e.team===1){for(let k=0;k<40&&!p;k++){const c=(Math.random()*NC*NR)|0,q=cellPos(c);if(!navB[c]&&q[0]>W*.2)p=q;}p=p||snap(W/2-4,0);}
+  else if(!RESP()||!e.died||(G.mode===2&&e.team===0&&G.ph==='buy'))p=edgeSpawn(e,idx);
   else{const sg=e.team?1:-1;let bs=-1;for(let k=0;k<40;k++){const c=(Math.random()*NC*NR)|0;if(navB[c])continue;const q=cellPos(c);if(q[0]*sg<W*.1)continue;let md=1e9;for(const o of ents.values())if(o.alive&&o!==e)md=Math.min(md,Math.hypot(o.x-q[0],o.z-q[1])*(o.team===e.team?2.5:1));if(md>bs){bs=md;p=q;}if(md>28)break;}p=p||snap(sg*(W/2-3.5),0);}
   e.x=e.tx=p[0];e.z=e.tz=p[1];e.y=e.ty=0;e.vx=e.vy=e.vz=0;e.yaw=e.tyaw=Math.atan2(p[0],p[1]);e.spT=now();e.pitch=e.tpitch=0;
   e.hp=100;e.alive=true;e.deadT=0;e.rel=0;e.cool=0;e.prot=RESP()?2:0;e.veh=-1;e.seat=-1;e.died=false;e.st=0;e.gib=false;e.thA=0;e.thP=null;
@@ -2431,8 +2436,6 @@ function botGoal(b){
     if(rng32(((now()/9)|0)*7+n)()<.35)return patrol(n,W*.08,0,D*.32);const s=site(n%2);return patrol(n,s[0],s[1],9);}
   if(m===5){if(Math.hypot(b.x,b.z)>G.zr*.85)return[0,0,1];
     if(b.weapon==='glok'){let best=null,bd=45;for(const p of picks.values()){const d=Math.hypot(p.x-b.x,p.z-b.z);if(d<bd){bd=d;best=p;}}if(best)return[best.x,best.z,0];}}
-  // deathmatch i eliminacja: bot trzyma się dowódcy swojego oddziału (pierwszego żywego, gracze mają pierwszeństwo)
-  if((m===0||m===1)&&b.team<2){const L=[b].concat(sqMates(b)).sort(sqCmp),ld=L.find(o=>o.alive&&!o.spec);if(ld&&ld!==b&&Math.hypot(ld.x-b.x,ld.z-b.z)>16)return patrol(n,ld.x,ld.z,6);}
   return null;
 }
 function turn(a,b,max){let d=b-a;while(d>Math.PI)d-=Math.PI*2;while(d<-Math.PI)d+=Math.PI*2;return a+clamp(d,-max,max);}

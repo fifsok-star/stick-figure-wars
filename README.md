@@ -42,6 +42,7 @@ A 3D stick-figure shooter that runs in the browser — drawn in a school noteboo
 | `E` | Open a crate / pick up a weapon or item / get in or out of a vehicle (nothing is picked up automatically) |
 | `F` / middle mouse button | Knife |
 | `X` | Knife in hand (stab with left mouse button) |
+| `Ctrl` / left `Alt` | Sneak — slow and silent, no footsteps |
 | `B` | Shop |
 | `Tab` | Scoreboard |
 | `Enter` / `Y` | Chat to all / to team |

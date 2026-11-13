@@ -143,8 +143,13 @@ legend,.lbl{font-family:var(--display);font-size:26px;padding:0;margin-bottom:6p
 #shop .panel{max-width:1120px;padding:10px 14px;overflow:hidden}#shop .phead{margin-bottom:2px}#shop h2{font-size:30px}#shopHint{font-size:15px;margin:0 0 2px}
 .catrow{display:grid;grid-template-columns:118px 1fr;gap:4px 8px;align-items:start;padding:4px 0;border-top:1.5px dashed rgba(27,31,58,.18)}
 #shop .cat{margin:4px 0 0;font-size:18px;line-height:1.05}
-#shop .item{padding:2px 8px}#shop .item b span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1}#shop .item b em,#shop .item b i{flex:none}#shop .item b{font-size:17px}#shop .item small{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-@media (max-height:560px){#shop .item small{display:none}#shop .item b{font-size:15px}#shop .items{grid-template-columns:repeat(auto-fill,minmax(122px,1fr));gap:4px}.catrow{grid-template-columns:84px 1fr;padding:2px 0}#shop .cat{font-size:15px}#shop h2{font-size:24px}#shopMoney{font-size:22px}}
+#shop .item{padding:2px 8px}#shop .item b span{white-space:normal;hyphens:auto;overflow-wrap:break-word;min-width:0;flex:1 1 0;line-height:1.05}#shop .item b{align-items:baseline;gap:0 8px}#shop .item b em,#shop .item b i{flex:none}#shop .item b{font-size:17px}#shop .item small{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (min-height:680px) and (max-height:859px) and (min-width:900px){#shop .panel{max-width:1400px}#shop .items{grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:6px}#shop .item b{font-size:20px}#shop .item small{font-size:13.5px;white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;line-height:1.2}#shop .cat{font-size:21px}.catrow{grid-template-columns:140px 1fr}#shop h2{font-size:36px}#shopMoney{font-size:34px}}
+@media (min-height:860px) and (min-width:900px){#shop .panel{max-width:1560px;padding:16px 22px}#shop h2{font-size:44px}#shopMoney{font-size:42px}#shopHint{font-size:19px;margin:2px 0 6px}
+.catrow{grid-template-columns:170px 1fr;gap:8px 12px;padding:9px 0}#shop .cat{font-size:26px;margin-top:8px}#shop .items{grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:9px}
+#shop .item{padding:8px 13px;gap:3px;border-width:2.5px}#shop .item b{font-size:25px}#shop .item small{font-size:15.5px;white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;line-height:1.25}}
+@media (min-height:900px) and (min-width:1400px){#shop .item b{font-size:28px}#shop .item small{font-size:17px}#shop .items{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}#shop .cat{font-size:29px}.catrow{grid-template-columns:190px 1fr}}
+@media (max-height:560px){#shop .panel{overflow-y:auto}#shop .item small{display:none}#shop .item b{font-size:15px}#shop .items{grid-template-columns:repeat(auto-fill,minmax(138px,1fr));gap:4px}.catrow{grid-template-columns:84px 1fr;padding:2px 0}#shop .cat{font-size:15px}#shop h2{font-size:24px}#shopMoney{font-size:22px}}
 .item{text-align:left;padding:6px 10px;border:2px solid var(--ink);border-radius:var(--wobble);background:var(--paper);cursor:pointer;display:flex;flex-direction:column;gap:1px;min-width:0}
 .item b{font-family:var(--display);font-weight:400;font-size:21px;display:flex;justify-content:space-between;gap:8px}
 .item b em{font-style:normal;color:var(--ok)}
@@ -1168,7 +1173,7 @@ function rayEnt(o,ox,oy,oz,dx,dy,dz){
   if(st===1){hy=o.y+.98;bh=.78;}
   else if(st===2){const fx=-Math.sin(o.yaw),fz=-Math.cos(o.yaw);hx+=fx*1.5;hz+=fz*1.5;hy=o.y+.6;bx+=fx*.75;bz+=fz*.75;bh=.7;br=.6;}
   let th=-1,tb=-1;
-  {const cx=hx-ox,cy=hy-oy,cz=hz-oz,b=cx*dx+cy*dy+cz*dz,c=cx*cx+cy*cy+cz*cz-.0484,disc=b*b-c;if(disc>=0){const t=b-Math.sqrt(disc);if(t>0)th=t;}}
+  {const cx=hx-ox,cy=hy-oy,cz=hz-oz,b=cx*dx+cy*dy+cz*dz,c=cx*cx+cy*cy+cz*cz-.0361,disc=b*b-c;if(disc>=0){const t=b-Math.sqrt(disc);if(t>0)th=t;}}
   {let t0=0,t1=1e9,a,c,s,ok=true;
    const lo=[bx-br,o.y,bz-br],hi=[bx+br,o.y+bh,bz+br],or=[ox,oy,oz],di=[dx,dy,dz];
    for(let k=0;k<3&&ok;k++){if(Math.abs(di[k])<1e-9){if(or[k]<lo[k]||or[k]>hi[k])ok=false;}else{a=(lo[k]-or[k])/di[k];c=(hi[k]-or[k])/di[k];if(a>c){s=a;a=c;c=s;}if(a>t0)t0=a;if(c<t1)t1=c;if(t0>t1)ok=false;}}
@@ -1697,10 +1702,10 @@ function makeStick(e){const m=makeStick0(e);m.root.traverse(o=>{if(o.isMesh&&!(o
 function makeStick0(e){
   const ink=mat(theme.ink),tc=mat(colOf(e)),root=new THREE.Group(),body=new THREE.Group();root.add(body);
   const torso=limb(.62,.05,ink);torso.position.y=1.47;body.add(torso);
-  const head=new THREE.Mesh(new THREE.SphereGeometry(.2,14,10),tc);head.position.y=1.7;body.add(head);
-  head.add(new THREE.Mesh(new THREE.SphereGeometry(.275,14,10),mat(theme.ink,{side:THREE.BackSide})));
+  const head=new THREE.Mesh(new THREE.SphereGeometry(.17,14,10),tc);head.position.y=1.69;body.add(head);
+  head.add(new THREE.Mesh(new THREE.SphereGeometry(.235,14,10),mat(theme.ink,{side:THREE.BackSide})));
   const gear=mat(theme.bg==='#24443a'?'#b9c48a':'#5c6b3a');
-  const hm=MODELS&&MODELS.helmet,helmet=hm?mdlObj(hm):new THREE.Mesh(new THREE.SphereGeometry(.3,14,6,0,Math.PI*2,0,Math.PI/2),gear);helmet.position.y=hm?1.7:1.72;helmet.scale.setScalar(.88);helmet.visible=false;body.add(helmet);
+  const hm=MODELS&&MODELS.helmet,helmet=hm?mdlObj(hm):new THREE.Mesh(new THREE.SphereGeometry(.3,14,6,0,Math.PI*2,0,Math.PI/2),gear);helmet.position.y=hm?1.7:1.72;helmet.scale.setScalar(.76);helmet.visible=false;body.add(helmet);
   const vm=MODELS&&MODELS.vest,vest=vm?mdlObj(vm):new THREE.Mesh(new THREE.BoxGeometry(.34,.44,.2),gear);vest.position.y=1.2;vest.visible=false;body.add(vest);
   const legs=[];
   for(const s of[-1,1]){const hip=new THREE.Group();hip.position.set(.09*s,.86,0);hip.add(limb(.44,.05,ink));
@@ -2053,7 +2058,7 @@ function updatePicks(dt){
   }
 }
 function gibs(e,kx,kz){
-  if(!fxG||spectating)return;const ink=mat(theme.ink),P=[[new THREE.Mesh(new THREE.SphereGeometry(.23,10,8),mat(colOf(e))),1.7],[limb(.62,.05,ink),1.4]];
+  if(!fxG||spectating)return;const ink=mat(theme.ink),P=[[new THREE.Mesh(new THREE.SphereGeometry(.17,10,8),mat(colOf(e))),1.69],[limb(.62,.05,ink),1.4]];
   for(let i=0;i<4;i++)P.push([limb(.44,.05,ink),i<2?.8:1.3]);
   for(const q of P){const m=q[0];m.position.set(e.x+rand(-.2,.2),e.y+q[1],e.z+rand(-.2,.2));m.rotation.set(rand(6),0,rand(6));fxG.add(m);gibL.push({m:m,vx:kx*rand(2,6)+gauss()*2.5,vy:rand(4,8.5),vz:kz*rand(2,6)+gauss()*2.5,life:5});}
   blood(e.x,e.y+1.2,e.z,kx,.5,kz,22);splat(e.x,e.gy,e.z,2);

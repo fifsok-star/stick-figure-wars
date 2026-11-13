@@ -1745,14 +1745,16 @@ function makeStick0(e){
     const knee=new THREE.Group();knee.position.y=-.44;knee.add(limb(.42,.05,ink));hip.add(knee);body.add(hip);legs.push({hip:hip,knee:knee});}
   const aim=new THREE.Group();aim.position.set(0,1.38,0);body.add(aim);
   aim.add(seg([.03,0,0],[.25,-.2,-.12],.045,ink));aim.add(seg([.25,-.2,-.12],[.15,-.16,-.42],.045,ink));
-  aim.add(seg([-.03,0,0],[-.2,-.22,-.3],.045,ink));aim.add(seg([-.2,-.22,-.3],[.12,-.12,-.66],.045,ink));
+  const la=new THREE.Group();aim.add(la);la.add(seg([-.03,0,0],[-.2,-.22,-.3],.045,ink));la.add(seg([-.2,-.22,-.3],[.12,-.12,-.66],.045,ink));
+  // druga ręka luźno wzdłuż ciała (nóż trzymany w jednej ręce)
+  const lr=new THREE.Group();lr.position.set(0,1.38,0);lr.visible=false;body.add(lr);lr.add(seg([-.04,0,0],[-.2,-.3,.04],.045,ink));lr.add(seg([-.2,-.3,.04],[-.22,-.58,-.04],.045,ink));
   const gun=new THREE.Group();gun.position.set(.15,-.08,-.42);aim.add(gun);
   const sh=new THREE.Mesh(new THREE.CircleGeometry(.45,16),mat(theme.ink,{transparent:true,opacity:.16,depthWrite:false}));sh.rotation.x=-Math.PI/2;root.add(sh);
   let tag=null,hb=null;if(!e.local){tag=makeTag(e.name,colOf(e));root.add(tag);
     const c=document.createElement('canvas');c.width=128;c.height=16;hb=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),transparent:true,depthWrite:false}));hb.scale.set(1.1,.14,1);hb.position.y=2.02;hb.userData.c=c;root.add(hb);}
   const mc=document.createElement('canvas');mc.width=mc.height=64;{const g=mc.getContext('2d');g.fillStyle=colOf(e);g.strokeStyle='#1b1f3a';g.lineWidth=7;g.beginPath();g.arc(32,32,26,0,6.3);g.fill();g.stroke();}
   const mk=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(mc),depthTest:false,depthWrite:false,transparent:true}));mk.renderOrder=15;mk.position.y=2.6;mk.visible=false;root.add(mk);
-  return{mk:mk,hb:hb,root:root,body:body,legs:legs,aim:aim,gun:gun,helmet:helmet,vest:vest,sh:sh,tag:tag};
+  return{la:la,lr:lr,mk:mk,hb:hb,root:root,body:body,legs:legs,aim:aim,gun:gun,helmet:helmet,vest:vest,sh:sh,tag:tag};
 }
 function animEnt(e,dt){
   const m=e.m;if(!m)return;
@@ -1783,6 +1785,7 @@ function animEnt(e,dt){
     m.aim.rotation.z=0;m.aim.rotation.y=0;m.body.rotation.y=0;if(m.knife)m.knife.visible=false;for(let i=0;i<2;i++){m.legs[i].hip.rotation.z=0;m.legs[i].hip.rotation.x=(i?1:-1)*(.25+s*.7)*b;m.legs[i].knee.rotation.x=-(.2+(i?s:1-s)*1.1)*b;}
     e.cr=e.dvp=0;return;}
   m.gun.visible=true;
+  {const one=e.weapon==='noz'||e.knA>0;if(m.la){m.la.visible=!one;m.lr.visible=one;}}
   let kn=0;if(e.knA>0){e.knA-=dt*2.4;kn=Math.sin(Math.PI*clamp(1-e.knA,0,1));}m.knife.visible=e.knA>0;if(e.knA>0)m.gun.visible=false;
   const st=e.st|0;e.cr+=((st===1?1:0)-e.cr)*Math.min(1,dt*14);e.dvp+=((st===2?1:0)-e.dvp)*Math.min(1,dt*16);
   let th=0;if(e.thA>0){if(e!==me)e.thA-=dt*3;const q=1-Math.max(0,e.thA);th=q<.45?1.5*(q/.45):1.5-2.9*((q-.45)/.55);m.gun.visible=q>.8;}
@@ -2759,7 +2762,7 @@ function toggleView(){
 }
 function buildVM(e){
   while(vmG.children.length)vmG.remove(vmG.children[0]);
-  const kn=(e.knA||0)>0,g=makeGun(kn?'noz':e.weapon,kn?0:e.mods|0),bb=new THREE.Box3().setFromObject(g),L=-bb.min.z,ink=mat(theme.ink),tc=mat(colOf(e));
+  const kn=(e.knA||0)>0||e.weapon==='noz',g=makeGun(kn?'noz':e.weapon,kn?0:e.mods|0),bb=new THREE.Box3().setFromObject(g),L=-bb.min.z,ink=mat(theme.ink),tc=mat(colOf(e));
   vmG.add(g);vmG.userData.gun=g;
   vmG.add(seg([.16,-.42,.25],[.01,-.1,-.02],.032,ink));if(!kn)vmG.add(seg([-.3,-.46,.15],[-.02,-.07,-Math.min(.45,L*.55)],.032,ink));
   const h1=new THREE.Mesh(new THREE.SphereGeometry(.035,8,6),tc);h1.position.set(.01,-.1,-.02);vmG.add(h1);

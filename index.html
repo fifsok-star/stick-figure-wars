@@ -226,7 +226,7 @@ body.touch #chat{bottom:calc(150px + env(safe-area-inset-bottom,0px))}
 #clsBar{position:absolute;left:50%;bottom:calc(14px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--paper);border:2.5px solid var(--ink);border-radius:var(--wobble);padding:8px 12px;box-shadow:5px 6px 0 rgba(27,31,58,.18);width:max-content;max-width:min(1000px,96vw);display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px;pointer-events:auto;z-index:6;max-width:94vw}
 #depT{font-family:var(--display);font-weight:400;font-size:28px;color:var(--red);width:100%;text-align:center;line-height:1}
 #clsBar .crow,#clsBar .srow{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px;width:100%}
-#clsBar .srow button{font-size:15px;padding:2px 10px}#clsBar .srow button.busy{color:var(--red)}#depGo{white-space:nowrap;max-width:none!important;font:inherit;font-family:var(--display)!important;font-size:22px!important;background:var(--red)!important;color:#fff;border:2px solid var(--ink);padding:3px 18px!important}#depGo:disabled{opacity:.6;cursor:default}
+#clsBar .srow button{font-size:15px;padding:2px 10px}#clsBar .srow button.busy{color:var(--red)}table:not(.cl) .cls{display:none}td.cls{font-size:.85em;opacity:.85}#depGo{white-space:nowrap;max-width:none!important;font:inherit;font-family:var(--display)!important;font-size:22px!important;background:var(--red)!important;color:#fff;border:2px solid var(--ink);padding:3px 18px!important}#depGo:disabled{opacity:.6;cursor:default}
 #sqP{position:absolute;left:max(12px,env(safe-area-inset-left,0px));bottom:calc(96px + env(safe-area-inset-bottom,0px));background:var(--paper);border:2px solid var(--ink);border-radius:var(--wobble);padding:3px 10px;font-size:14px;line-height:1.3;min-width:150px;pointer-events:none;zoom:var(--ui,1.15)}
 #sqP b{font-family:var(--display);font-weight:400;font-size:18px;color:#1f9d4a;display:block}#sqP div{white-space:nowrap}#sqP div.me{font-weight:700}#sqP div.dead{opacity:.45;text-decoration:line-through}
 #sqP i{font-style:normal;font-size:11px;border:1.5px solid var(--ink);border-radius:5px;padding:0 3px;color:var(--pencil)}#sqP span{display:inline-block;height:4px;background:#1f9d4a;margin-left:6px;vertical-align:middle;border-radius:2px}
@@ -293,7 +293,7 @@ body.touch.deadm #touch>button{display:none}
   <div id="sqP" hidden></div>
   <div id="chat"><div id="chatLog" aria-live="polite"></div><input id="chatIn" maxlength="80" autocomplete="off" hidden></div>
   <div id="res" class="overlay" hidden><div class="panel"><h2 id="resT"></h2><p id="resS"></p><p id="resM"></p>
-    <table><thead><tr><th>Gracz</th><th>Zabójstwa</th><th>Zgony</th><th>Obrażenia</th><th>Kasa</th></tr></thead><tbody id="resBody"></tbody></table>
+    <table><thead><tr><th>Gracz</th><th class="cls">Klasa</th><th>Zabójstwa</th><th>Zgony</th><th>Obrażenia</th><th>Kasa</th></tr></thead><tbody id="resBody"></tbody></table>
     <div class="go" id="resBtns" hidden><button class="btn" id="resAgain" type="button">Zagraj ponownie</button><span id="resWait" hidden>Czekamy, aż host zacznie nowy mecz…</span><button class="btn small" id="resTeam" type="button">Zmień drużynę</button><button class="btn small" id="resMenu" type="button">Menu</button></div></div></div>
   <div id="lobby" class="overlay" hidden><div class="panel"><div class="phead"><h2>Poczekalnia</h2><span id="lobInfo"></span></div>
     <div id="lobList"></div>
@@ -307,7 +307,7 @@ body.touch.deadm #touch>button{display:none}
     <button id="tGren" type="button">Granat</button><button id="tKnife" type="button">Nóż</button><button id="tGsel" type="button">Odł. 0</button><button id="tGad" type="button" hidden>Gadżet</button><button id="tPick" type="button" hidden>Podnieś</button><button id="tCrouch" type="button">Kuc</button><button id="tDive" type="button">Rzut</button><button id="tScope" type="button">Luneta</button><div id="tTop"><button id="tShop" type="button">Sklep</button><button id="tBoard" type="button">Tabela</button><button id="tChat" type="button">Czat</button><button id="tView" type="button">Widok</button><button id="tMenu" type="button">Menu</button></div>
   </div>
   <div id="board" class="overlay" hidden><div class="panel"><div class="phead"><h2>Tabela</h2><span id="boardInfo"></span><button class="btn small" id="boardX" type="button">Zamknij</button></div>
-    <table><thead><tr><th>Gracz</th><th>Zabójstwa</th><th>Zgony</th><th>Obrażenia</th><th>Kasa</th></tr></thead><tbody id="boardBody"></tbody></table></div></div>
+    <table><thead><tr><th>Gracz</th><th class="cls">Klasa</th><th>Zabójstwa</th><th>Zgony</th><th>Obrażenia</th><th>Kasa</th></tr></thead><tbody id="boardBody"></tbody></table></div></div>
   <div id="shop" class="overlay" hidden><div class="panel">
     <div class="phead"><h2>Sklep</h2><span id="shopMoney">$800</span><button class="btn small" id="shopClose" type="button">Zamknij (B)</button></div>
     <p id="shopHint"></p><div id="shopGrid"></div></div></div>
@@ -3016,8 +3016,9 @@ function rankCmp(a,b){return (b.k|0)-(a.k|0)||(a.d|0)-(b.d|0)||(b.dmg||0)-(a.dmg
 function drawBoard(id){
   const body=$(id||'boardBody');body.textContent='';
   $('boardInfo').textContent=tr(MODES[G.mode].name+' · '+MAPS[G.map].name+(R?' · pokój online':' · gra solo'));
+  const cl=CLM();body.parentNode.classList.toggle('cl',cl);
   const row=(e,t)=>{const trw=document.createElement('tr');trw.className='t'+t+(e===me?' me':'')+(e.alive?'':' dead');
-    [(SQM()?'['+SQN[(e.sq|0)%SQN.length]+'] ':'')+e.name+(e.bot?' '+tr('(bot)'):''),e.k,e.d,Math.round(e.dmg||0),(e===me||(!BR()&&e.team===me.team)?'$'+e.money:'—')].forEach(v=>{const td=document.createElement('td');td.textContent=String(v);trw.appendChild(td);});body.appendChild(trw);};
+    [(SQM()?'['+SQN[(e.sq|0)%SQN.length]+'] ':'')+e.name+(e.bot?' '+tr('(bot)'):''),cl&&(e.team===0||G.mode===6)?tr(CLASSES[e.cls|0].name):'',e.k,e.d,Math.round(e.dmg||0),(e===me||(!BR()&&e.team===me.team)?'$'+e.money:'—')].forEach((v,i)=>{const td=document.createElement('td');td.textContent=String(v);if(i===1)td.className='cls';trw.appendChild(td);});body.appendChild(trw);};
   if(BR()){const L=[];for(const e of ents.values())if(!e.spec)L.push(e);L.sort((a,b)=>(b.alive-a.alive)||rankCmp(a,b));L.slice(0,16).forEach(e=>row(e,tc(e)));return;}
   const sc=G.sc||[0,0],mt=me.team&1,TO=sc[0]!==sc[1]?(sc[0]>sc[1]?[0,1]:[1,0]):[mt,1-mt];// lepsza drużyna wyżej
   for(let q=0;q<2;q++){const t=TO[q];

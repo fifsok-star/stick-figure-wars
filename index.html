@@ -2731,8 +2731,8 @@ function calcHost(){
 }
 function cleanName(n){n=typeof n==='string'?n.replace(/[^\p{L}\p{N} _.-]/gu,'').trim().slice(0,14):'';return n||'Gracz';}
 function adoptG(g){
-  G.du=g.du|0;G.tm=g.tm&&typeof g.tm==='object'?g.tm:null;
   if(!g||typeof g!=='object')return;
+  G.du=g.du|0;G.tm=g.tm&&typeof g.tm==='object'?g.tm:null;
   const m=clamp(g.m|0,0,MAPS.length-1);if(m!==G.map)loadMap(m);
   G.mode=clamp(g.md|0,0,6);if(Array.isArray(g.cp))G.cp=g.cp.map(c=>Array.isArray(c)?[c[0]===0||c[0]===1?c[0]:-1,clamp(num(c[1]),-1,1)]:[-1,0]);G.diff=clamp(g.df|0,0,2);G.ph=['buy','live','end','over','lobby'].indexOf(g.ph)>=0?g.ph:'live';
   G.rem=num(g.rem);G.sc=[num(g.sc&&g.sc[0])|0,num(g.sc&&g.sc[1])|0];G.rd=g.rd|0;G.wave=Math.max(1,g.wv|0);G.win=g.win===0||g.win===1?g.win:-1;G.mid=g.mid|0;G.left=g.lf|0;

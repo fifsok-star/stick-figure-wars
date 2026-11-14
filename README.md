@@ -43,6 +43,7 @@ A 3D stick-figure shooter that runs in the browser — drawn in a school noteboo
 | `F` / middle mouse button | Knife |
 | `X` | Knife in hand (stab with left mouse button) |
 | `Ctrl` / left `Alt` | Sneak — slow and silent, no footsteps |
+| `H` | Drink a potion (Battle royale) |
 | `B` | Shop |
 | `Tab` | Scoreboard |
 | `Enter` / `Y` | Chat to all / to team |
@@ -89,3 +90,11 @@ Gracze łączą się bezpośrednio przeglądarka–przeglądarka, bez serwera gr
 
 ### Survival
 Waves keep coming until the whole team is down. Every 3rd wave brings a **boss** (bigger, much tougher, heavy machine gun, $1000 for the kill). Everyone starts with a Glock and picks a class at the start; the four Conquest classes give their gadgets on `Z`, medics revive fallen defenders (hold `E`), and you pick your class with `1–4` while dead or from the pause menu.
+
+### Flying
+- **Helicopter:** mouse turns, `W/S` forward/back, `A/D` sideways, `Space` up, `C` down; with no keys it hovers. Moving off the ground lifts it automatically and it keeps ~5 m above the ground while moving.
+- **Jet:** `W/S` set the throttle (it stays where you leave it), mouse or `A/D` steer, `Space`/`C` nose up/down, LMB cannon, RMB rockets. Take off at full throttle and lift the nose at 30 m/s; below that speed the jet sinks. Gentle landings are safe.
+- While piloting, a control card with speed, altitude and throttle is shown at the bottom.
+
+### Battle royale loot
+Some boxes, crates, cabinets and other furniture can be searched with `E` — inside are potions, medkits, grenades, armour, mods and sometimes a weapon. A destroyed container drops its loot. **Potions** (up to 3) are drunk with `H`: +40 health over a few seconds.

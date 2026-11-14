@@ -98,6 +98,10 @@ Waves keep coming until the whole team is down. Every 3rd wave brings a **boss**
 - **Jet:** `W/S` set the throttle (it stays where you leave it), mouse or `A/D` steer, `Space`/`C` nose up/down, LMB cannon, RMB rockets. Take off at full throttle and lift the nose at 30 m/s; below that speed the jet sinks. Gentle landings are safe.
 - While piloting, a control card with speed, altitude and throttle is shown at the bottom.
 
+### Battle royale: the Island and the helicopter drop
+**Wyspa (Island)** is a gigantic 640×640 map made for Battle royale: valleys with ten villages, forests, a farm, a military base, and walkable mountains with snow on the peaks (loot crates wait on some summits).
+On every larger map (160 m and up) a Battle royale match starts in a helicopter flying across the map: press `Space` to jump, steer the free fall with `WASD`, press `Space` again to open the parachute (it opens by itself near the ground) and glide to the spot you picked. The flight path is drawn on the minimap, and the zone starts closing only after everyone has landed.
+
 ### Battle royale duos
 In the menu pick **Squad: Duos** for Battle royale — players (then bots) are paired up, partners land next to each other, can't hurt each other, see each other in blue, and the last pair standing wins.
 

@@ -795,7 +795,8 @@ const VT={
 };
 /* serwer Discord: przycisk do kanału głosowego (pusty adres = przycisk ukryty) */
 const DISCORD_URL='https://discord.gg/AYHFQ3yr2';
-function initDiscord(){if(!/^https:\/\/(discord\.gg|discord\.com\/invite)\//.test(DISCORD_URL))return;for(const a of document.querySelectorAll('a.dcBtn')){a.href=DISCORD_URL;a.hidden=false;a.addEventListener('click',()=>{try{if(document.pointerLockElement)document.exitPointerLock();}catch(_){}});}}
+function initDiscord(){try{initDiscord0();}catch(_){}}
+function initDiscord0(){if(!/^https:\/\/(discord\.gg|discord\.com\/invite)\//.test(DISCORD_URL))return;for(const a of document.querySelectorAll('a.dcBtn')){a.href=DISCORD_URL;a.hidden=false;a.addEventListener('click',()=>{try{if(document.pointerLockElement)document.exitPointerLock();}catch(_){}});}}
 setTimeout(initDiscord,0);
 const VHEAT={vmg:.022,vac:.09,vjg:.017};function m0x(v){return v.x;}function m0z(v){return v.z;}
 const VW={vcan:{name:'Działo',cd:3.2,pv:150,sk:1},vac:{name:'Działko',cd:.3,pv:110,sk:3},vmg:{name:'Karabin pokładowy',cd:.095,hit:1,dmg:20,vd:9,spread:.012},vrk:{name:'Rakiety',cd:.5,pv:90,sk:2},vjg:{name:'Działko lotnicze',cd:.07,hit:1,dmg:24,vd:20,spread:.01}};

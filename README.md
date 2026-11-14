@@ -96,6 +96,9 @@ Waves keep coming until the whole team is down. Every 3rd wave brings a **boss**
 - **Jet:** `W/S` set the throttle (it stays where you leave it), mouse or `A/D` steer, `Space`/`C` nose up/down, LMB cannon, RMB rockets. Take off at full throttle and lift the nose at 30 m/s; below that speed the jet sinks. Gentle landings are safe.
 - While piloting, a control card with speed, altitude and throttle is shown at the bottom.
 
+### Battle royale duos
+In the menu pick **Squad: Duos** for Battle royale — players (then bots) are paired up, partners land next to each other, can't hurt each other, see each other in blue, and the last pair standing wins.
+
 ### Battle royale loot
 Loot crates are hidden: in building corners (sometimes upstairs) and, on maps without houses, in nooks and behind cover rather than out in the open. The minimap only shows crates close to you.
 Some boxes, crates, cabinets and other furniture can be searched with `E` — inside are potions, medkits, grenades, armour, mods and sometimes a weapon. A destroyed container drops its loot. **Potions** (up to 3) are drunk with `H`: +40 health over a few seconds.

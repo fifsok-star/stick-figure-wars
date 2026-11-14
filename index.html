@@ -793,7 +793,7 @@ const VT={
   jet:{name:'Samolot',seats:1,hp:450,r:2.4,hx:1.2,hz:6,H:2.2,spd:72,jet:1,cam:17,mult:.45,wpn:['vjg'],closed:[1],sp:[[0,1.1,-2.6]],mount:[[0,.9,-6.6]],letter:'S'}
 };
 /* serwer Discord: przycisk do kanału głosowego (pusty adres = przycisk ukryty) */
-const DISCORD_URL='';
+const DISCORD_URL='https://discord.gg/AYHFQ3yr2';
 function initDiscord(){if(!/^https:\/\/(discord\.gg|discord\.com\/invite)\//.test(DISCORD_URL))return;for(const a of document.querySelectorAll('a.dcBtn')){a.href=DISCORD_URL;a.hidden=false;a.addEventListener('click',()=>{try{if(document.pointerLockElement)document.exitPointerLock();}catch(_){}});}}
 setTimeout(initDiscord,0);
 const VHEAT={vmg:.022,vac:.09,vjg:.017};function m0x(v){return v.x;}function m0z(v){return v.z;}

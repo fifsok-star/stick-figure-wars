@@ -97,4 +97,5 @@ Waves keep coming until the whole team is down. Every 3rd wave brings a **boss**
 - While piloting, a control card with speed, altitude and throttle is shown at the bottom.
 
 ### Battle royale loot
+Loot crates are hidden: in building corners (sometimes upstairs) and, on maps without houses, in nooks and behind cover rather than out in the open. The minimap only shows crates close to you.
 Some boxes, crates, cabinets and other furniture can be searched with `E` — inside are potions, medkits, grenades, armour, mods and sometimes a weapon. A destroyed container drops its loot. **Potions** (up to 3) are drunk with `H`: +40 health over a few seconds.

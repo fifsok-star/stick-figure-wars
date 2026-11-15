@@ -44,6 +44,7 @@ A 3D stick-figure shooter that runs in the browser — drawn in a school noteboo
 | `X` | Knife in hand (stab with left mouse button) |
 | `Ctrl` / left `Alt` | Sneak — slow and silent, no footsteps |
 | `H` | Drink a potion (Battle royale) |
+| `M` | Big map |
 | `W` `W` (hold) | Sprint in Conquest and Battle royale (on touch: push the stick fully forward) |
 | `C` | Crouch (toggle); hold to go prone in Conquest and Battle royale |
 | `T` | Medic: throw a medkit (+45 HP to the first wounded teammate who reaches it) |

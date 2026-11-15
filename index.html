@@ -164,7 +164,7 @@ legend,.lbl{font-family:var(--display);font-size:26px;padding:0;margin-bottom:6p
 #board tr.t0 td:first-child{color:var(--blue)} #board tr.t1 td:first-child{color:var(--red)}
 #board tr.me td{background:var(--marker)} #board tr.dead td{opacity:.5}
 #board tr.sep td{border-top:2px dashed var(--ink);height:6px;padding:0}
-#pause{bottom:var(--pauseB,0px)}#pause .panel{max-height:calc(100% - 16px);overflow-y:auto;max-width:420px;text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center}
+#pause{bottom:var(--pauseB,0px)}#pause .panel>.btn,#pause .panel>label.nbF{width:min(340px,100%);box-sizing:border-box;justify-content:center}#pause .panel>label.nbF{display:flex}#pause .panel>label.nbF[hidden]{display:none}#pause .panel>label.nbF input{flex:1;min-width:0}#pause .panel{max-height:calc(100% - 16px);overflow-y:auto;max-width:420px;text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center}
 #touch{position:absolute;inset:0;pointer-events:none}
 #touch button{position:absolute;pointer-events:auto;width:58px;height:58px;border-radius:50%;border:2px solid var(--ink);background:rgba(247,245,238,.8);font-size:15px;touch-action:none}
 #tFire{right:max(18px,env(safe-area-inset-right,0px));bottom:calc(120px + env(safe-area-inset-bottom,0px));width:78px!important;height:78px!important;background:rgba(212,42,42,.8)!important;color:#fff}

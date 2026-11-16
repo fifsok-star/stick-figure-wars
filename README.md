@@ -82,7 +82,7 @@ Strzelanka 3D z patyczakami w przeglądarce, narysowana w zeszycie. Grasz sam z 
 
 **Graj:** https://fifsok-star.github.io/stick-figure-wars/
 
-- **Tryby:** drużynowy deathmatch, eliminacja (na rundy), przetrwanie, zdobądź flagę, bomba, battle royale do 128 graczy oraz **Podbój** (punkty A–E, bilety drużyn, klasy: szturmowiec, medyk, inżynier, snajper; oddziały po 4 osoby, odrodzenie w bazie, na punkcie albo przy koledze z oddziału).
+- **Tryby:** drużynowy deathmatch, eliminacja (na rundy), przetrwanie, zdobądź flagę, bomba, battle royale do 128 graczy oraz **Podbój** (punkty A–E, bilety drużyn, klasy: szturmowiec, medyk, inżynier, snajper; oddziały po 4 osoby, odrodzenie w bazie, na punkcie albo przy koledze z oddziału). Do tego **Szturm**: atakujący zdobywają kolejne sektory po 3 punkty, obrońcy się cofają; atakujący mają ograniczone bilety, a po zdobyciu wszystkich sektorów następuje zamiana ról (wygrywa ta drużyna, której zostanie więcej biletów).
 - **Pojazdy na mapie Front** (liczba miejsc): czołg (2), transporter (5), humvee z wieżyczką (4), helikopter (4), samolot (1). `E` — wsiadanie i wysiadanie, `1`–`5` — zmiana miejsca.
 - **Mapy:** Zeszyt, Karton, Tablica (małe), Segregator, Hala, Aula (labirynty), Sala gimnastyczna, Biurko, Stołówka, Szkoła, Podwórko oraz Front (olbrzymia, z pojazdami) i Miasteczko (podbój bez pojazdów).
 - **Gra przez internet:** wszyscy wpisują ten sam kod pokoju albo host wysyła link z przycisku **Zaproś**. Pierwsza osoba jest hostem i startuje mecz z poczekalni, boty zajmują wolne miejsca.
